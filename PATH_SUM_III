@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int countPaths(TreeNode* node, long long targetSum) {
+        if (!node) return 0;
+        int count = 0;
+        if (node->val == targetSum) count++;
+        count += countPaths(node->left, targetSum - node->val);
+        count += countPaths(node->right, targetSum - node->val);
+        return count;
+    }
+    int pathSum(TreeNode* root, int targetSum) {
+        if (!root) return 0;
+        int pathsFromRoot = countPaths(root, targetSum);
+        int pathsOnLeft = pathSum(root->left, targetSum);
+        int pathsOnRight = pathSum(root->right, targetSum);
+        return pathsFromRoot + pathsOnLeft + pathsOnRight;
+    }
+};
